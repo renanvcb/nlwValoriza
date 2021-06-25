@@ -1,4 +1,5 @@
 import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Expose } from "class-transformer";
 import { v4 as uuid } from "uuid";
 
 @Entity("tags")
@@ -14,6 +15,12 @@ class Tag {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  // Create a custom field inside entity
+  @Expose({ name: "name_custom" })
+  name_custom(): string {
+    return `#${this.name}`;
+  }
 
   constructor() {
     // If id is empty, it means that a new user is being created
